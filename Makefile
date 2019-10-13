@@ -6,7 +6,7 @@ HEADER = -I libft/includes/ -I minilibx_macos/ -I includes/
 
 LIB		= -L libft/ -lft -L ./minilibx_macos/ -lmlx -framework OpenGL -framework AppKit
 
-LIST = main test
+LIST = main read draw solution#test
 
 OBJS = $(addprefix objs/, $(addsuffix .o, $(LIST)))
 
