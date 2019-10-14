@@ -6,7 +6,7 @@
 /*   By: crenly-b <crenly-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 12:44:47 by crenly-b          #+#    #+#             */
-/*   Updated: 2019/10/13 21:53:33 by crenly-b         ###   ########.fr       */
+/*   Updated: 2019/10/14 22:02:52 by crenly-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	mlx_initial(t_map  *map)
 	map->matrix = NULL;
 	map->max_x = 0;
 	map->max_y = 0;
+	map->max_z = 0;
 	map->mul_xy = 0;
 	map->size_x = 1000;
 	map->size_y = 1000;
