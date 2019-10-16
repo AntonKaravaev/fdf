@@ -6,7 +6,7 @@
 /*   By: crenly-b <crenly-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 12:44:47 by crenly-b          #+#    #+#             */
-/*   Updated: 2019/10/16 13:57:09 by crenly-b         ###   ########.fr       */
+/*   Updated: 2019/10/16 18:08:49 by crenly-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,30 @@
 
 int			key_press(int keycode, t_map *map)
 {
-	(void)map;
+
+	//mlx_destroy_window(map->mlx_ptr, map->win_ptr);
+	ft_printf(" %d \n ", map->size_x * map->size_y * 4);
+	ft_bzero(map->img_data, map->size_x * map->size_y * 4);
 	if (keycode == kVK_Escape)
 		exit (0);
+	else if (keycode == kVK_ANSI_1)
+	{
+		ft_printf("1\n");
+		map->flag2d = 1;
+		map->flag3d = 0;
+		map->move_vert = 0;
+		map->move_horiz = 0;
+		ft_solution(map);
+	}
+	else if (keycode == kVK_ANSI_2)
+	{
+		ft_printf("2\n");
+		map->flag2d = 0;
+		map->flag3d = 1;
+		map->move_vert = 0;
+		map->move_horiz = 0;
+		ft_solution(map);
+	}
 	else if (keycode == kVK_ANSI_W)
 	{
 		ft_printf("W\n");
@@ -32,18 +53,20 @@ int			key_press(int keycode, t_map *map)
 	else if (keycode == kVK_ANSI_A)
 	{
 		ft_printf("A\n");
-		map->move_horiz += 1000;
+		map->move_horiz -= 10;
 		ft_solution(map);
 	}
 	else if (keycode == kVK_ANSI_D)
 	{
 		ft_printf("D\n");
-		map->move_horiz -= 1000;
+		map->move_horiz += 10;
 		ft_solution(map);
 	}
+	else if (keycode == kVK_ANSI_0)
+		print_matrix(map->matrix, map->max_y, map->max_x);
+
 	return (0);
 }
-
 
 // void	move(int key, t_map	*map)
 // {
@@ -83,6 +106,8 @@ static void	mlx_initial(t_map  *map)
 	map->size_y = 1000;
 	map->move_vert = 0;
 	map->move_horiz = 0;
+	map->flag2d = 1;
+	map->flag3d = 0;
 }
 
 void		ft_validation(char *argv, t_map *map)
@@ -117,6 +142,15 @@ int			main(int argc, char **argv)
 		exit(-1);
 	}
 	ft_printf("map.mul_xy = %d\n", map.mul_xy);
-	mlx_key_hook(map.win_ptr, key_press, &map);
+	//mlx_hook(fdf->win, 2, 0, key_press, fdf);
+	mlx_hook(map.win_ptr, 2, 0, key_press, &map);
+	//mlx_key_hook(map.win_ptr, key_press, &map);
 	mlx_loop(map.mlx_ptr);
 }
+
+
+// движение мышки 6
+// нажатие на мышки 4
+// отпустил 5
+
+

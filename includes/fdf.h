@@ -6,7 +6,7 @@
 /*   By: crenly-b <crenly-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 15:28:36 by crenly-b          #+#    #+#             */
-/*   Updated: 2019/10/15 23:20:38 by crenly-b         ###   ########.fr       */
+/*   Updated: 2019/10/16 18:08:38 by crenly-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,23 @@
 # define kVK_ANSI_S	0x01
 # define kVK_ANSI_A 0x00
 # define kVK_ANSI_D 0x02
+# define kVK_ANSI_0 0x1D
+# define kVK_ANSI_1 0x12
+# define kVK_ANSI_2 0x13
 
 typedef struct	s_point
 {
-	int	x;
-	int	y;
-	int	z;
+	float	x;
+	float	y;
+	float	z;
 	int	color;
 }				t_point;
 
 typedef struct	s_map
 {
-	t_point	points[500000]; // ??
+	t_point	points[300000]; // ??
+	int		color[300000];
+	int		**matrix;
 	int		po;
 	int		*str; // ??
 	void	*mlx_ptr;
@@ -47,7 +52,6 @@ typedef struct	s_map
 	int		bpp; // bits_per_pixel
 	int		sl; // size line
 	int		endian;
-	int		**matrix;
 	int		temp_color; 
 	int		max_y; 
 	int		max_x;
@@ -56,6 +60,8 @@ typedef struct	s_map
 	int		size_y;
 	int		move_vert;
 	int		move_horiz;
+	int		flag2d;
+	int		flag3d;
 }				t_map;
 
 int		read_file(t_map *map, int fd);
@@ -66,5 +72,7 @@ void	ft_solution(t_map *map);
 void	draw_line(t_map *map, t_point s, t_point f);
 int		ft_tricky_atoi(t_map *map, const char *s);
 int		key_press(int keycode, t_map *map);
+
+void		print_matrix(int **matrix, int max_y, int max_x);
 // int		sgn(int x);
 #endif
