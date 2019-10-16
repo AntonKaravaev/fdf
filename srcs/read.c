@@ -6,7 +6,7 @@
 /*   By: crenly-b <crenly-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 12:44:44 by crenly-b          #+#    #+#             */
-/*   Updated: 2019/10/14 22:29:55 by crenly-b         ###   ########.fr       */
+/*   Updated: 2019/10/15 16:34:20 by crenly-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,27 +47,35 @@ int			**creat_matrix(t_list **alst, int max_y)
 
 int			*take_int(t_map *map, char *line, int *max_x)
 {
-		char    **split;
-		int     *array;
-		int     i;
+	char    **split;
+	int     *array;
+	int     i;
 
-		i = 0;
-		split = ft_strsplit(line, ' ');
-        //ft_strdel(&line);
-		while (split[i])
-			i++;
-		array = (int*)ft_memalloc(i * 4);
-		*max_x = i;
-		i = -1;
-		while (++i < *max_x)
+	i = 0;
+	split = ft_strsplit(line, ' ');
+     //ft_strdel(&line);
+	while (split[i])
+		i++;
+	array = (int*)ft_memalloc(i * 4);
+	*max_x = i;
+	i = -1;
+	while (++i < *max_x)
+	{
+		++map->po;
+		map->points[map->po].z = ft_tricky_atoi(map, split[i]);
+		map->points[map->po].x = i;
+		map->points[map->po].y = map->max_y;
+		array[i] = ft_tricky_atoi(map, split[i]);
+		if (map->temp_color != 0)
 		{
-			array[i] = ft_tricky_atoi(map, split[i]);
-			if (map->max_z < abs(array[i]))
-				map->max_z = abs(array[i]);
+			map->points[map->po].color = map->temp_color;
+			map->temp_color = 0;
 		}
-        //ft_str2del(&split);
-		ft_printf("map->max_z = %d\n", map->max_z);
-		return (array);
+		else
+			map->points[map->po].color = (int)0x0ef01d;
+	}
+     //ft_str2del(&split);
+	return (array);
 }
 
 int			read_file(t_map *map, int fd)

@@ -6,55 +6,11 @@
 /*   By: crenly-b <crenly-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 17:39:23 by crenly-b          #+#    #+#             */
-/*   Updated: 2019/10/13 22:57:42 by crenly-b         ###   ########.fr       */
+/*   Updated: 2019/10/15 16:32:47 by crenly-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-
-// int			sgn(int x)
-// {
-// 	if (x > 0)
-// 		return (1);
-// 	if (x < 0)
-// 			return (-1);
-// 	else
-// 		return (0);
-// }
-
-// char		*draw_line(int x0, int x1, int y0, int y1, int size_x, int size_y)
-// {
-// 	int		dx;
-// 	int		dy;
-// 	int		error;
-// 	int		sign_dx;
-// 	int		sign_dy;
-// 	char	*img;
-
-// 	img = ft_memalloc(size_x * size_y * 4 * 4);
-// 	dx = abs(x0 - x1);
-// 	dy = abs(y0 - y1);
-// 	sign_dx = x0 < x1 ? 1 : -1;
-// 	sign_dy = y0 < y1 ? 1 : -1;
-// 	error = dx - dy;
-// 	img[(x1) * 4  + (y1) * size_x * 4] = (char)255; //-??
-// 	while(x0 != x1 || y0 != y1)
-// 	{
-// 		img[x0 * 4  + y0 * size_x * 4] = (char)255;
-// 		if (2 * error > -dy)
-// 		{
-// 			error = error - dy;
-// 			x0 = x0 + sign_dx;
-// 		}
-// 		if (2 * error < dx)
-// 		{
-// 			error = error + dx;
-// 			y0 = y0 + sign_dy;
-// 		}
-// 	}
-// 	return (img);
-// }
-
 
 static void	put_pixel(t_map *map, int x, int y, int color)
 {

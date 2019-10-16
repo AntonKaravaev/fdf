@@ -6,58 +6,62 @@
 /*   By: crenly-b <crenly-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 12:44:47 by crenly-b          #+#    #+#             */
-/*   Updated: 2019/10/14 22:02:52 by crenly-b         ###   ########.fr       */
+/*   Updated: 2019/10/16 13:57:09 by crenly-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-// int main (int argc, char **argv)
-// {
-// 	void *mlx_ptr;
-// 	void *win_ptr;
-// 	int bpp;
-// 	int size_line;
-// 	int endian;
-// 	void *img_ptr;
-// 	char *img_data;
-// //	int i;
-// //	char *line;
-// 	int fd;
-// 	//проверки на параметры
-// 	if (argc == 2)
-// 	{
-// 		fd = open(argv[1], O_RDWR);
-// 		if (read_file(fd) == 0)
-// 			return (0); //free all
-// 	}
-// 	else
-// 	{
-// 		ft_putstr("Error. Need file.");
-// 		exit(-1);
-// 	}
-// 	mlx_ptr = mlx_init();
-// 	win_ptr = mlx_new_window(mlx_ptr, 1000, 1000, "anton's fdf");
-// 	img_ptr = mlx_new_image(mlx_ptr, 500, 500);
-// 	img_data = mlx_get_data_addr(img_ptr, &bpp, &size_line, &endian);
-// 	ft_memcpy(img_data, draw_line(0, 500, 0, 500, 500, 500), 500 * 500 * 4 * 4);
-// //	ft_strcpy(img_data, draw_line(0, 150, 0, 100, 500, 500));
-// 	mlx_put_image_to_window(mlx_ptr, win_ptr, img_ptr, 0, 0);
-// 	mlx_loop(mlx_ptr);
-// return (0);
-// }
-
-int		key_press(int keycode, void *param)
+int			key_press(int keycode, t_map *map)
 {
-	(void)param;
+	(void)map;
 	if (keycode == kVK_Escape)
 		exit (0);
+	else if (keycode == kVK_ANSI_W)
+	{
+		ft_printf("W\n");
+		map->move_vert -= 10;
+		ft_solution(map);
+	}
+	else if (keycode == kVK_ANSI_S)
+	{
+		ft_printf("S\n");
+		map->move_vert += 10;
+		ft_solution(map);
+	}
+	else if (keycode == kVK_ANSI_A)
+	{
+		ft_printf("A\n");
+		map->move_horiz += 1000;
+		ft_solution(map);
+	}
+	else if (keycode == kVK_ANSI_D)
+	{
+		ft_printf("D\n");
+		map->move_horiz -= 1000;
+		ft_solution(map);
+	}
 	return (0);
 }
 
-void	mlx_initial(t_map  *map)
+
+// void	move(int key, t_map	*map)
+// {
+// 	(void)map;
+// 	if (kVK_ANSI_P)
+// 	// 	fdf->camera->x_offset -= 10;
+// 	// else if (key == ARROW_RIGHT)
+// 	// 	fdf->camera->x_offset += 10;
+// 	// else if (key == ARROW_UP)
+// 	// 	fdf->camera->y_offset -= 10;
+// 	// else
+// 	// 	fdf->camera->y_offset += 10;
+// 	ft_solution(map);
+// }
+
+static void	mlx_initial(t_map  *map)
 {
-	map->points = NULL;
+	map->po = -1;
  	map->str = NULL;
 	map->mlx_ptr = NULL;
 	map->win_ptr = NULL;
@@ -71,15 +75,17 @@ void	mlx_initial(t_map  *map)
 	map->img_ptr = (mlx_new_image(map->mlx_ptr, 1000, 1000));
 	map->img_data = (int *)(mlx_get_data_addr(map->img_ptr, &map->bpp, &map->sl, &map->endian));
 	map->matrix = NULL;
+	map->temp_color = 0;
 	map->max_x = 0;
 	map->max_y = 0;
-	map->max_z = 0;
 	map->mul_xy = 0;
 	map->size_x = 1000;
 	map->size_y = 1000;
+	map->move_vert = 0;
+	map->move_horiz = 0;
 }
 
-void	ft_validation(char *argv, t_map *map)
+void		ft_validation(char *argv, t_map *map)
 {
 	int fd;
 
@@ -95,7 +101,7 @@ void	ft_validation(char *argv, t_map *map)
 	}
 }
 
-int		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_map	map;
 
@@ -110,11 +116,7 @@ int		main(int argc, char **argv)
 		ft_putstr_fd("Error. Need file.\n", 2);
 		exit(-1);
 	}
-
-
-	mlx_put_image_to_window(map.mlx_ptr, map.win_ptr, map.img_ptr, 0, 0);
-	mlx_key_hook(map.win_ptr, key_press, (void *)0);
+	ft_printf("map.mul_xy = %d\n", map.mul_xy);
+	mlx_key_hook(map.win_ptr, key_press, &map);
 	mlx_loop(map.mlx_ptr);
 }
-
-//	mlx_pixel_put(mlx_ptr, win_ptr, 501, 501, 13132855);
