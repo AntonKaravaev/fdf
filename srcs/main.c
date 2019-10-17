@@ -6,7 +6,7 @@
 /*   By: crenly-b <crenly-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 12:44:47 by crenly-b          #+#    #+#             */
-/*   Updated: 2019/10/16 18:08:49 by crenly-b         ###   ########.fr       */
+/*   Updated: 2019/10/17 14:08:42 by crenly-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int			key_press(int keycode, t_map *map)
 		map->flag3d = 0;
 		map->move_vert = 0;
 		map->move_horiz = 0;
+		map->bors = 1;
 		ft_solution(map);
 	}
 	else if (keycode == kVK_ANSI_2)
@@ -36,6 +37,21 @@ int			key_press(int keycode, t_map *map)
 		map->flag3d = 1;
 		map->move_vert = 0;
 		map->move_horiz = 0;
+		map->bors = 1;
+		ft_solution(map);
+	}
+		else if (keycode == kVK_ANSI_3)
+	{
+		ft_printf("1\n");
+		map->flag2d = 1;
+		map->flag3d = 0;
+		ft_solution(map);
+	}
+	else if (keycode == kVK_ANSI_4)
+	{
+		ft_printf("2\n");
+		map->flag2d = 0;
+		map->flag3d = 1;
 		ft_solution(map);
 	}
 	else if (keycode == kVK_ANSI_W)
@@ -60,6 +76,26 @@ int			key_press(int keycode, t_map *map)
 	{
 		ft_printf("D\n");
 		map->move_horiz += 10;
+		ft_solution(map);
+	}
+	else if (keycode == VK_ANSI_KeypadPlus)
+	{
+		ft_printf("+\n");
+		if (map->bors <= 100)
+		{
+			map->bors += 1;
+			ft_printf("++++ Arti = %d\n", map->bors);
+		}
+		ft_solution(map);
+	}
+	else if (keycode == kVK_ANSI_KeypadMinus)
+	{
+		ft_printf("-\n");
+		if (map->bors >= 2)
+		{
+			map->bors -= 1;
+			ft_printf("Arti-\n");
+		}
 		ft_solution(map);
 	}
 	else if (keycode == kVK_ANSI_0)
@@ -94,7 +130,7 @@ static void	mlx_initial(t_map  *map)
 	map->sl = 0;
 	map->endian = 0;
 	map->mlx_ptr = mlx_init();
-	map->win_ptr = mlx_new_window(map->mlx_ptr, 1000, 1000, "anton's fdf");
+	map->win_ptr = mlx_new_window(map->mlx_ptr, 1500, 1000, "anton's fdf");
 	map->img_ptr = (mlx_new_image(map->mlx_ptr, 1000, 1000));
 	map->img_data = (int *)(mlx_get_data_addr(map->img_ptr, &map->bpp, &map->sl, &map->endian));
 	map->matrix = NULL;
@@ -108,6 +144,7 @@ static void	mlx_initial(t_map  *map)
 	map->move_horiz = 0;
 	map->flag2d = 1;
 	map->flag3d = 0;
+	map->bors = 1;
 }
 
 void		ft_validation(char *argv, t_map *map)
@@ -128,7 +165,7 @@ void		ft_validation(char *argv, t_map *map)
 
 int			main(int argc, char **argv)
 {
-	t_map	map;
+	t_map		map;
 
 	mlx_initial(&map);
 	if (argc == 2)

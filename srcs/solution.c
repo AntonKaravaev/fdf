@@ -6,13 +6,13 @@
 /*   By: crenly-b <crenly-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 17:02:25 by crenly-b          #+#    #+#             */
-/*   Updated: 2019/10/16 18:09:23 by crenly-b         ###   ########.fr       */
+/*   Updated: 2019/10/17 14:05:11 by crenly-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-void			ft_fiil_in_point(t_map *map, int i_int, int *counter)
+void			ft_fiil_in_point(t_map *map, int i_int, int *co)
 {
 	int i;
 	int j;
@@ -26,23 +26,13 @@ void			ft_fiil_in_point(t_map *map, int i_int, int *counter)
 	{
 		temp_x = j;
 
-		map->points[*counter].z = (float)map->matrix[i][j];
-	//	ft_printf("z = %f ", map->points[*counter].z);
-		map->points[*counter].x = (float)(j + (map->size_x - map->max_x) / 2 + map->move_horiz);
-	//	ft_printf("x = %f ", map->points[*counter].x);
-		map->points[*counter].y = (float)(i + (map->size_y - map->max_y) / 2 + map->move_vert);
-	//	ft_printf("y = %f ", map->points[*counter].y);
-		map->points[*counter].color = map->color[*counter];
-	//	ft_printf("color = %d\n", map->points[*counter].color);
-		//ft_printf("z = %f, x = %f, y = %f, color = %d\n", map->points[*counter].z, map->points[*counter].x, map->points[*counter].y, map->points[*counter].color);
-		// map->points[*counter].z = map->matrix[temp_y][temp_x];
-		// map->points[*counter].x = (int)(((j - i) * cos(0.46373398)) + map->size_x / 2 + map->move_vert);
-		// map->points[*counter].y = (int)((-map->matrix[temp_y][temp_x] + (j + i) * sin(0.46373398)) + map->size_y / 2 + map->move_horiz);
-		(*counter)++;
+		map->points[*co].z = map->matrix[i][j];
+		map->points[*co].x = j * map->bors + ((map->size_x - map->max_x * map->bors) / 2) + map->move_horiz;
+		map->points[*co].y = i * map->bors + ((map->size_y - map->max_y * map->bors) / 2) + map->move_vert;
+		map->points[*co].color = map->color[*co];
+		(*co)++;
 	}
-	//ft_printf("\ncounter = %d\n\n", (*counter));
 }
-
 
 void			ft_fiil_in_point2(t_map *map, int i_int, int *counter)
 {
@@ -57,34 +47,31 @@ void			ft_fiil_in_point2(t_map *map, int i_int, int *counter)
 	while (++j < map->max_x)
 	{
 		temp_x = j;
-		map->points[*counter].z = (float)(map->matrix[i][j]);
-		map->points[*counter].x = (float)(((j - i) * cos(0.46373398)) + (map->size_x - map->max_x) / 2 + map->move_horiz);
-		map->points[*counter].y = (float)((-map->matrix[temp_y][temp_x] + (j + i) * sin(0.46373398)) + (map->size_y - map->max_y) + map->move_vert);
+		map->points[*counter].z = map->matrix[i][j];
+		map->points[*counter].x = (j - i) * cos(0.46373398) * map->bors + (map->size_x - map->max_x  * map->bors) / 2 + map->move_horiz;
+		map->points[*counter].y = (-map->matrix[temp_y][temp_x] + (j + i) * sin(0.46373398)) * map->bors + (map->size_y - map->max_y) / 2 + map->move_vert;
 		map->points[*counter].color = map->color[*counter];
 		(*counter)++;
 	}
-
 }
 
 void		ft_solution(t_map *map)
 {
+	t_boarder	bor;
 	int		counter;
 	int		i;
 	int		j;
 
 	i = -1;
 	counter = 0;
-
-	//ft_printf("map->max_x = %d, map->max_y = %d\n", map->max_x, map->max_y);
+	ft_init_and_print_board(&bor, map);
 	while (++i < map->max_y)
 	{
 		if (map->flag2d == 1 && map->flag3d == 0)
 			ft_fiil_in_point(map, i, &counter);
 		else if (map->flag2d == 0 && map->flag3d == 1)
-			ft_fiil_in_point2(map, i, &counter);	
+			ft_fiil_in_point2(map, i, &counter);
 	}
-
-	ft_printf("!!\n");
 	i = -1;
 	counter = -1;
 	while(++i < map->max_y)
