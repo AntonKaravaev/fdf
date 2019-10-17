@@ -6,7 +6,7 @@ HEADER = -I libft/includes/ -I minilibx_macos/ -I includes/
 
 LIB		= -L libft/ -lft -L ./minilibx_macos/ -lmlx -framework OpenGL -framework AppKit
 
-LIST = main read draw solution tricky_atoi board#test
+LIST = main read draw solution tricky_atoi board menu#test
 
 OBJS = $(addprefix objs/, $(addsuffix .o, $(LIST)))
 

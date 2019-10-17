@@ -6,7 +6,7 @@
 /*   By: crenly-b <crenly-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 12:44:47 by crenly-b          #+#    #+#             */
-/*   Updated: 2019/10/17 14:08:42 by crenly-b         ###   ########.fr       */
+/*   Updated: 2019/10/17 17:26:35 by crenly-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,25 +54,25 @@ int			key_press(int keycode, t_map *map)
 		map->flag3d = 1;
 		ft_solution(map);
 	}
-	else if (keycode == kVK_ANSI_W)
+	else if (keycode == kVK_UpArrow)
 	{
 		ft_printf("W\n");
 		map->move_vert -= 10;
 		ft_solution(map);
 	}
-	else if (keycode == kVK_ANSI_S)
+	else if (keycode == kVK_DownArrow)
 	{
 		ft_printf("S\n");
 		map->move_vert += 10;
 		ft_solution(map);
 	}
-	else if (keycode == kVK_ANSI_A)
+	else if (keycode == kVK_LeftArrow)
 	{
 		ft_printf("A\n");
 		map->move_horiz -= 10;
 		ft_solution(map);
 	}
-	else if (keycode == kVK_ANSI_D)
+	else if (keycode == kVK_RightArrow)
 	{
 		ft_printf("D\n");
 		map->move_horiz += 10;
@@ -96,6 +96,13 @@ int			key_press(int keycode, t_map *map)
 			map->bors -= 1;
 			ft_printf("Arti-\n");
 		}
+		ft_solution(map);
+	}
+	else if (keycode == kVK_ANSI_W)
+	{
+		ft_printf("W\n");
+		map->z_rotation = 1;
+		map->sico = 0.1;
 		ft_solution(map);
 	}
 	else if (keycode == kVK_ANSI_0)
@@ -145,6 +152,8 @@ static void	mlx_initial(t_map  *map)
 	map->flag2d = 1;
 	map->flag3d = 0;
 	map->bors = 1;
+	map->sico = 0.1;
+	map->z_rotation = 0;
 }
 
 void		ft_validation(char *argv, t_map *map)
@@ -171,6 +180,7 @@ int			main(int argc, char **argv)
 	if (argc == 2)
 	{
 		ft_validation(argv[1], &map);
+		print_menu(&map);
 		ft_solution(&map);
 	}
 	else
@@ -181,6 +191,9 @@ int			main(int argc, char **argv)
 	ft_printf("map.mul_xy = %d\n", map.mul_xy);
 	//mlx_hook(fdf->win, 2, 0, key_press, fdf);
 	mlx_hook(map.win_ptr, 2, 0, key_press, &map);
+	// mlx_hook(map.win_ptr, 4, 0, mouse_press, &map);
+	// mlx_hook(map.win_ptr, 5, 0, mouse_release, &map);
+	// mlx_hook(map.win_ptr, 6, 0, mouse_move, &map);
 	//mlx_key_hook(map.win_ptr, key_press, &map);
 	mlx_loop(map.mlx_ptr);
 }
@@ -189,5 +202,3 @@ int			main(int argc, char **argv)
 // движение мышки 6
 // нажатие на мышки 4
 // отпустил 5
-
-

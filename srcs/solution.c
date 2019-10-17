@@ -6,7 +6,7 @@
 /*   By: crenly-b <crenly-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 17:02:25 by crenly-b          #+#    #+#             */
-/*   Updated: 2019/10/17 14:05:11 by crenly-b         ###   ########.fr       */
+/*   Updated: 2019/10/17 17:33:46 by crenly-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ void		ft_solution(t_map *map)
 	}
 	i = -1;
 	counter = -1;
+	if (map->z_rotation == 1)
+		ud_rotation(map);
 	while(++i < map->max_y)
 	{
 		j = -1;
@@ -96,4 +98,27 @@ void		ft_solution(t_map *map)
 		}
 	}
 	mlx_put_image_to_window(map->mlx_ptr, map->win_ptr, map->img_ptr, 0, 0);
+}
+
+
+
+void	ud_rotation(t_map *map)
+{
+	double	y0;
+
+	int		num;
+
+	num = -1;
+	// if (key == kVK_ANSI_W)
+	// 	map->sico = -0.1;
+	while(++num < map->mul_xy)
+	{
+		y0 = map->points[num].y - map->max_y / 2;
+		map->points[num].y = map->max_y / 2 + y0 * cos(map->sico) + map->points[num].z * sin(map->sico);
+		map->points[num].z = -y0 * sin(map->sico) + map->points[num].z * cos(map->sico);
+	}
+	ft_printf("Beach\n");
+	map->sico = 0.1;
+	map->z_rotation = 0;
+	// print(fdf);
 }
