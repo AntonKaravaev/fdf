@@ -6,7 +6,7 @@
 /*   By: crenly-b <crenly-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 12:44:47 by crenly-b          #+#    #+#             */
-/*   Updated: 2019/10/17 17:26:35 by crenly-b         ###   ########.fr       */
+/*   Updated: 2019/10/18 02:03:16 by crenly-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 int			key_press(int keycode, t_map *map)
 {
-
-	//mlx_destroy_window(map->mlx_ptr, map->win_ptr);
-	ft_printf(" %d \n ", map->size_x * map->size_y * 4);
 	ft_bzero(map->img_data, map->size_x * map->size_y * 4);
 	if (keycode == kVK_Escape)
 		exit (0);
@@ -101,29 +98,23 @@ int			key_press(int keycode, t_map *map)
 	else if (keycode == kVK_ANSI_W)
 	{
 		ft_printf("W\n");
+		map->flag2d = 0;
+		map->flag3d = 0;
 		map->z_rotation = 1;
 		map->sico = 0.1;
 		ft_solution(map);
 	}
-	else if (keycode == kVK_ANSI_0)
-		print_matrix(map->matrix, map->max_y, map->max_x);
-
+	else if (keycode == kVK_ANSI_S)
+	{
+		ft_printf("W\n");
+		map->flag2d = 0;
+		map->flag3d = 0;
+		map->z_rotation = 1;
+		map->sico = -0.1;
+		ft_solution(map);
+	}
 	return (0);
 }
-
-// void	move(int key, t_map	*map)
-// {
-// 	(void)map;
-// 	if (kVK_ANSI_P)
-// 	// 	fdf->camera->x_offset -= 10;
-// 	// else if (key == ARROW_RIGHT)
-// 	// 	fdf->camera->x_offset += 10;
-// 	// else if (key == ARROW_UP)
-// 	// 	fdf->camera->y_offset -= 10;
-// 	// else
-// 	// 	fdf->camera->y_offset += 10;
-// 	ft_solution(map);
-// }
 
 static void	mlx_initial(t_map  *map)
 {
@@ -137,8 +128,8 @@ static void	mlx_initial(t_map  *map)
 	map->sl = 0;
 	map->endian = 0;
 	map->mlx_ptr = mlx_init();
-	map->win_ptr = mlx_new_window(map->mlx_ptr, 1500, 1000, "anton's fdf");
-	map->img_ptr = (mlx_new_image(map->mlx_ptr, 1000, 1000));
+	map->win_ptr = mlx_new_window(map->mlx_ptr, WIDTH_OF_WINDOW, HIGH_OF_WINDOW, "anton's fdf");
+	map->img_ptr = (mlx_new_image(map->mlx_ptr, WIDTH_OF_IMAGE, HIGH_OF_IMAGE));
 	map->img_data = (int *)(mlx_get_data_addr(map->img_ptr, &map->bpp, &map->sl, &map->endian));
 	map->matrix = NULL;
 	map->temp_color = 0;
@@ -156,7 +147,7 @@ static void	mlx_initial(t_map  *map)
 	map->z_rotation = 0;
 }
 
-void		ft_validation(char *argv, t_map *map)
+static void	ft_validation(char *argv, t_map *map)
 {
 	int fd;
 
@@ -172,6 +163,20 @@ void		ft_validation(char *argv, t_map *map)
 	}
 }
 
+void	ft_find_the_right_bors(int *bors, int *mul)
+{
+	if (*mul < 400)
+		*bors = 25;
+	else if (*mul < 1000)
+		*bors = 12;
+	else if (*mul < 5000)
+		*bors = 3;
+	else if (*mul < 10000)
+		*bors = 2;
+	else if (*mul > 10000)
+		*bors = 1;
+}
+
 int			main(int argc, char **argv)
 {
 	t_map		map;
@@ -181,6 +186,7 @@ int			main(int argc, char **argv)
 	{
 		ft_validation(argv[1], &map);
 		print_menu(&map);
+		ft_find_the_right_bors(&map.bors, &map.mul_xy);
 		ft_solution(&map);
 	}
 	else
@@ -188,17 +194,6 @@ int			main(int argc, char **argv)
 		ft_putstr_fd("Error. Need file.\n", 2);
 		exit(-1);
 	}
-	ft_printf("map.mul_xy = %d\n", map.mul_xy);
-	//mlx_hook(fdf->win, 2, 0, key_press, fdf);
 	mlx_hook(map.win_ptr, 2, 0, key_press, &map);
-	// mlx_hook(map.win_ptr, 4, 0, mouse_press, &map);
-	// mlx_hook(map.win_ptr, 5, 0, mouse_release, &map);
-	// mlx_hook(map.win_ptr, 6, 0, mouse_move, &map);
-	//mlx_key_hook(map.win_ptr, key_press, &map);
 	mlx_loop(map.mlx_ptr);
 }
-
-
-// движение мышки 6
-// нажатие на мышки 4
-// отпустил 5

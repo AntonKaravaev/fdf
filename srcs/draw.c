@@ -6,7 +6,7 @@
 /*   By: crenly-b <crenly-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 17:39:23 by crenly-b          #+#    #+#             */
-/*   Updated: 2019/10/17 16:27:03 by crenly-b         ###   ########.fr       */
+/*   Updated: 2019/10/18 01:42:52 by crenly-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@ static void	put_pixel(t_map *map, int x, int y, int color)
 {
 	int		i;
 
-	i = (x) + (y * map->size_x); //map->max_x
-	map->img_data[i] = color;
+	if (x >= 0 && x < WIDTH_OF_IMAGE && y >= 0 && y < HIGH_OF_IMAGE)
+	{
+		i = (x) + (y * map->size_x); //map->max_x
+		map->img_data[i] = color;
+	}
 }
 
 void    draw_line(t_map *map, t_point s, t_point f)

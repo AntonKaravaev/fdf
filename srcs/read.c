@@ -6,7 +6,7 @@
 /*   By: crenly-b <crenly-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 12:44:44 by crenly-b          #+#    #+#             */
-/*   Updated: 2019/10/16 14:28:33 by crenly-b         ###   ########.fr       */
+/*   Updated: 2019/10/18 01:09:34 by crenly-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int			**creat_matrix(t_list **alst, int max_y)
 	tmp = *alst;
 	if (!(matrix = (int**)malloc(sizeof(int*) * (max_y))))
 		exit(-1);
+	max_y--;
 	while (max_y >= 0)
 	{
 		matrix[max_y] = tmp->content;
@@ -89,6 +90,7 @@ int			read_file(t_map *map, int fd)
 	map->max_x = 0;
 	if (get_next_line(fd, &line) == 1)
 			ft_lstadd(&start, ft_lstnew(take_int(map, line, &map->max_x), (map->max_x) * sizeof(int)));
+	map->max_y++;
 	while (get_next_line(fd, &line) == 1)
 	{
 		ft_lstadd(&start, ft_lstnew(take_int(map, line, &tmp), (map->max_x) * sizeof(int)));
@@ -101,6 +103,7 @@ int			read_file(t_map *map, int fd)
 	}
 	map->matrix = creat_matrix(&start, map->max_y);
 	//ft_lstdel(start); // Зафришить список!!!
+	print_matrix(map->matrix, map->max_y, map->max_x);
     map->mul_xy = map->max_x * map->max_y;
 	return (1);
 }
