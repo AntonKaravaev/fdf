@@ -6,7 +6,7 @@
 /*   By: crenly-b <crenly-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 12:44:47 by crenly-b          #+#    #+#             */
-/*   Updated: 2019/10/18 02:03:16 by crenly-b         ###   ########.fr       */
+/*   Updated: 2019/10/18 16:24:29 by crenly-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,25 +53,25 @@ int			key_press(int keycode, t_map *map)
 	}
 	else if (keycode == kVK_UpArrow)
 	{
-		ft_printf("W\n");
+		ft_printf("UP\n");
 		map->move_vert -= 10;
 		ft_solution(map);
 	}
 	else if (keycode == kVK_DownArrow)
 	{
-		ft_printf("S\n");
+		ft_printf("Down\n");
 		map->move_vert += 10;
 		ft_solution(map);
 	}
 	else if (keycode == kVK_LeftArrow)
 	{
-		ft_printf("A\n");
+		ft_printf("Left\n");
 		map->move_horiz -= 10;
 		ft_solution(map);
 	}
 	else if (keycode == kVK_RightArrow)
 	{
-		ft_printf("D\n");
+		ft_printf("Right\n");
 		map->move_horiz += 10;
 		ft_solution(map);
 	}
@@ -98,19 +98,55 @@ int			key_press(int keycode, t_map *map)
 	else if (keycode == kVK_ANSI_W)
 	{
 		ft_printf("W\n");
-		map->flag2d = 0;
-		map->flag3d = 0;
-		map->z_rotation = 1;
-		map->sico = 0.1;
+		// map->flag2d = 0;
+		// map->flag3d = 0;
+		// map->z_rotation = 1;
+		map->alfa += -0.1;
 		ft_solution(map);
 	}
 	else if (keycode == kVK_ANSI_S)
 	{
-		ft_printf("W\n");
-		map->flag2d = 0;
-		map->flag3d = 0;
-		map->z_rotation = 1;
-		map->sico = -0.1;
+		ft_printf("S\n");
+		// map->flag2d = 0;
+		// map->flag3d = 0;
+		// map->z_rotation = 1;
+		map->alfa += 0.1;
+		ft_solution(map);
+	}
+	else if (keycode == kVK_ANSI_A)
+	{
+		ft_printf("A\n");
+		// map->flag2d = 0;
+		// map->flag3d = 0;
+		// map->z_rotation = 1;
+		map->beta += -0.1;
+		ft_solution(map);
+	}
+	else if (keycode == kVK_ANSI_D)
+	{
+		ft_printf("D\n");
+		// map->flag2d = 0;
+		// map->flag3d = 0;
+		// map->z_rotation = 1;
+		map->beta += 0.1;
+		ft_solution(map);
+	}
+	else if (keycode == kVK_ANSI_Q)
+	{
+		ft_printf("Q\n");
+		// map->flag2d = 0;
+		// map->flag3d = 0;
+		// map->z_rotation = 1;
+		map->gamma += -0.1;
+		ft_solution(map);
+	}
+	else if (keycode == kVK_ANSI_Z)
+	{
+		ft_printf("Z\n");
+		// map->flag2d = 0;
+		// map->flag3d = 0;
+		// map->z_rotation = 1;
+		map->gamma += 0.1;
 		ft_solution(map);
 	}
 	return (0);
@@ -143,7 +179,9 @@ static void	mlx_initial(t_map  *map)
 	map->flag2d = 1;
 	map->flag3d = 0;
 	map->bors = 1;
-	map->sico = 0.1;
+	map->alfa = 0.0;
+	map->beta = 0.0;
+	map->gamma = 0.0;
 	map->z_rotation = 0;
 }
 

@@ -6,12 +6,11 @@
 /*   By: crenly-b <crenly-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 22:28:13 by crenly-b          #+#    #+#             */
-/*   Updated: 2019/10/17 13:43:55 by crenly-b         ###   ########.fr       */
+/*   Updated: 2019/10/18 12:41:01 by crenly-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-
 
 int		ft_atoi_base(const char *str, int base)
 {

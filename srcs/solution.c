@@ -6,11 +6,37 @@
 /*   By: crenly-b <crenly-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 17:02:25 by crenly-b          #+#    #+#             */
-/*   Updated: 2019/10/18 01:54:38 by crenly-b         ###   ########.fr       */
+/*   Updated: 2019/10/18 16:18:19 by crenly-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
+
+void	ft_init_points(t_map *map, int i_int, int *co)
+{
+	int j;
+
+	j = -1;
+	while (++j < map->max_x)
+	{
+		map->points[*co].z = map->matrix[i_int][j] * map->bors;
+		map->points[*co].x = j * map->bors - map->max_x * map->bors / 2;
+		map->points[*co].y = i_int * map->bors - map->max_y * map->bors / 2;
+		map->points[*co].color = map->color[*co];
+
+		ft_printf("x = %d, y = %d \n", map->points[*co].x, map->points[*co].y);
+		// 	rotate_x(&p.y, &p.z, fdf->camera->alpha);
+		x_rotation(map, map->points[*co].y, co);
+		y_rotation(map, map->points[*co].x, co);
+		z_rotation(map, map->points[*co].x, map->points[*co].y, co);
+		// rotate_z(&p.x, &p.y, fdf->camera->gamma);
+		// if (fdf->camera->projection == ISO)
+		// 	iso(&p.x, &p.y, p.z);
+		map->points[*co].x += (WIDTH_OF_IMAGE) / 2 + map->move_horiz;
+		map->points[*co].y += (HIGH_OF_IMAGE + map->max_y * map->bors) / 2 + map->move_vert;
+		(*co)++;
+	}
+}
 
 void			ft_fiil_in_point(t_map *map, int i_int, int *co)
 {
@@ -50,7 +76,6 @@ void			ft_fiil_in_point2(t_map *map, int i_int, int *counter)
 		map->points[*counter].color = map->color[*counter];
 		(*counter)++;
 	}
-	ft_printf("counter = %d\n", *counter);
 }
 
 void		ft_print_picture(t_map *map, int i, int j, int counter)
@@ -76,6 +101,7 @@ void		ft_print_picture(t_map *map, int i, int j, int counter)
 			counter++;
 		}
 	}
+	mlx_put_image_to_window(map->mlx_ptr, map->win_ptr, map->img_ptr, 0, 0);
 }
 
 void		ft_solution(t_map *map)
@@ -89,38 +115,35 @@ void		ft_solution(t_map *map)
 	j = -1;
 	counter = 0;
 	ft_init_and_print_board(&bor, map);
-	while (++i < map->max_y)
+	while (++i < map->max_y) //&& map->z_rotation == 0
 	{
-		if (map->flag2d == 1 && map->flag3d == 0)
-			ft_fiil_in_point(map, i, &counter);
-		else if (map->flag2d == 0 && map->flag3d == 1)
-			ft_fiil_in_point2(map, i, &counter);
+		ft_init_points(map, i, &counter);
+		// if (map->flag2d == 1 && map->flag3d == 0)
+		// 	ft_fiil_in_point(map, i, &counter);
+		// else if (map->flag2d == 0 && map->flag3d == 1)
+		// 	ft_fiil_in_point2(map, i, &counter);
 	}
-	if (map->z_rotation == 1)
-		ud_rotation(map);
+	// if (map->z_rotation == 1)
+	// 	ud_rotation(map);
 	counter = -1;
 	i = -1;
 	ft_print_picture(map, i, j, counter);
-	mlx_put_image_to_window(map->mlx_ptr, map->win_ptr, map->img_ptr, 0, 0);
 }
 
-void	ud_rotation(t_map *map)
+void	x_rotation(t_map *map, int pr_y, int *co)
 {
-	double	y0;
+	map->points[*co].y = cos(map->alfa) * pr_y + sin(map->alfa) * map->points[*co].z;
+	map->points[*co].z = sin(map->alfa) * (-pr_y) + cos(map->alfa) * map->points[*co].z;
+}
 
-	int		num;
+void	y_rotation(t_map *map, int pr_x, int *co)
+{
+	map->points[*co].x = cos(map->beta) * pr_x + sin(map->beta) * map->points[*co].z;
+	map->points[*co].z = sin(map->beta) * (-pr_x) + cos(map->beta) * map->points[*co].z;
+}
 
-	num = -1;
-	// if (key == kVK_ANSI_W)
-	// 	map->sico = -0.1;
-	while(++num < map->mul_xy)
-	{
-		y0 = (float)(map->points[num].y - (map->size_y - map->max_y) / 2);
-		map->points[num].y = (int)((map->size_y - map->max_y) / 2 + y0 * cos(map->sico) + map->points[num].z * sin(map->sico));
-		map->points[num].z = (int)(-y0 * sin(map->sico) + map->points[num].z * cos(map->sico));
-	}
-	ft_printf("Beach\n");
-	//map->sico = 0.1;
-	map->z_rotation = 0;
-	// print(fdf);
+void	z_rotation(t_map *map, int pr_x, int pr_y, int *co)
+{
+	map->points[*co].x = cos(map->gamma) * pr_x - sin(map->gamma) * pr_y;
+	map->points[*co].y = sin(map->gamma) * pr_x + cos(map->gamma) * pr_y;
 }

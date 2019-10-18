@@ -6,7 +6,7 @@
 /*   By: crenly-b <crenly-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 15:28:36 by crenly-b          #+#    #+#             */
-/*   Updated: 2019/10/18 01:41:22 by crenly-b         ###   ########.fr       */
+/*   Updated: 2019/10/18 16:20:25 by crenly-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@
 # define kVK_Escape	0x35
 # define kVK_ANSI_W	0x0D
 # define kVK_ANSI_S	0x01
-//# define kVK_ANSI_A 0x00
-//# define kVK_ANSI_D 0x02
+# define kVK_ANSI_A 0x00
+# define kVK_ANSI_D 0x02
+# define kVK_ANSI_Q 0x0C
+# define kVK_ANSI_Z 0x06
 # define kVK_ANSI_1 0x12
 # define kVK_ANSI_2 0x13
 # define kVK_ANSI_3 0x14
@@ -81,7 +83,9 @@ typedef struct	s_map
 	int		flag2d;
 	int		flag3d;
 	int		bors; // bigger_or_smaller
-	float	sico;
+	float	alfa;
+	float	beta;
+	float	gamma;
 	int		z_rotation;
 }				t_map;
 
@@ -99,7 +103,9 @@ void	ft_solution(t_map *map);
 void	draw_line(t_map *map, t_point s, t_point f);
 int		ft_tricky_atoi(t_map *map, const char *s);
 int		key_press(int keycode, t_map *map);
-void	ud_rotation(t_map *map);
+void	x_rotation(t_map *map, int pr_y, int *co);
+void	y_rotation(t_map *map, int pr_x, int *co);
+void	z_rotation(t_map *map, int pr_x, int pr_y, int *co);
 void	ft_init_and_print_board(t_boarder *bor, t_map *map);
 int		ft_atoi_base(const char *str, int base);
 void	print_menu(t_map *map);
