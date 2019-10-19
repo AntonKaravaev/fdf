@@ -6,7 +6,7 @@
 /*   By: crenly-b <crenly-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 13:36:45 by crenly-b          #+#    #+#             */
-/*   Updated: 2019/10/19 20:54:59 by crenly-b         ###   ########.fr       */
+/*   Updated: 2019/10/19 23:02:37 by crenly-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@ void	ft_iapb(t_boarder *bor)
 	bor->p[0].x = 0;
 	bor->p[0].y = 0;
 	bor->p[0].z = 0;
-	bor->p[0].color = color_of_board;
+	bor->p[0].color = COB;
 	bor->p[1].x = 999;
 	bor->p[1].y = 0;
 	bor->p[1].z = 0;
-	bor->p[1].color = color_of_board;
+	bor->p[1].color = COB;
 	bor->p[2].x = 0;
 	bor->p[2].y = 999;
 	bor->p[2].z = 0;
-	bor->p[2].color = color_of_board;
+	bor->p[2].color = COB;
 	bor->p[3].x = 999;
 	bor->p[3].y = 999;
 	bor->p[3].z = 0;
-	bor->p[3].color = color_of_board;
+	bor->p[3].color = COB;
 }
 
 void	ft_init_and_print_board(t_boarder *bor, t_map *map)

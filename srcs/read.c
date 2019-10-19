@@ -6,7 +6,7 @@
 /*   By: crenly-b <crenly-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 12:44:44 by crenly-b          #+#    #+#             */
-/*   Updated: 2019/10/19 20:38:36 by crenly-b         ###   ########.fr       */
+/*   Updated: 2019/10/19 23:56:23 by crenly-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,19 @@ int			**creat_matrix(t_list **alst, int max_y)
 		tmp = tmp->next;
 		max_y--;
 	}
-    tmp = NULL;
+	tmp = NULL;
 	return (matrix);
 }
 
 int			*take_int(t_map *map, char *line, int *max_x)
 {
-	char    **split;
-	int     *array;
-	int     i;
+	char	**split;
+	int		*array;
+	int		i;
 
 	i = 0;
 	split = ft_strsplit(line, ' ');
-     ft_strdel(&line);
+	ft_strdel(&line);
 	while (split[i])
 		i++;
 	array = (int*)ft_memalloc(i * 4);
@@ -72,34 +72,34 @@ int			*take_int(t_map *map, char *line, int *max_x)
 		else
 			map->color[map->po] = (int)0x0ef01d;
 	}
-    ft_str2del(&split);
+	ft_str2del(&split);
 	return (array);
 }
 
 int			read_file(t_map *map, int fd)
 {
-    t_list	*start;
+	t_list	*start;
 	char	*line;
 	int		tmp;
 
 	start = NULL;
-	map->max_y = 0;
-	map->max_x = 0;
 	if (get_next_line(fd, &line) == 1)
-			ft_lstadd(&start, ft_lstnew(take_int(map, line, &map->max_x), (map->max_x) * sizeof(int)));
+		ft_lstadd(&start, ft_lstnew(take_int(map, line, &map->max_x),
+			(map->max_x) * sizeof(int)));
 	map->max_y++;
 	while (get_next_line(fd, &line) == 1)
 	{
-		ft_lstadd(&start, ft_lstnew(take_int(map, line, &tmp), (map->max_x) * sizeof(int)));
+		ft_lstadd(&start, ft_lstnew(take_int(map, line, &tmp),
+			(map->max_x) * sizeof(int)));
 		if (tmp != map->max_x)
-        {
-            ft_putstr_fd("Error. Not the same width in lines.", 2);
+		{
+			ft_putstr_fd("Error. Not the same width in lines.", 2);
 			exit(-1);
-        }
+		}
 		map->max_y++;
 	}
 	map->matrix = creat_matrix(&start, map->max_y);
 	print_matrix(map->matrix, map->max_y, map->max_x);
-    map->mul_xy = map->max_x * map->max_y;
+	map->mul_xy = map->max_x * map->max_y;
 	return (1);
 }

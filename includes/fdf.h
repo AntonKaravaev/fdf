@@ -6,7 +6,7 @@
 /*   By: crenly-b <crenly-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 15:28:36 by crenly-b          #+#    #+#             */
-/*   Updated: 2019/10/19 21:16:34 by crenly-b         ###   ########.fr       */
+/*   Updated: 2019/10/19 23:53:45 by crenly-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,27 @@
 # include "../minilibx_macos/mlx.h"
 # include "../libft/includes/libft.h"
 # include <math.h>
-# define kVK_Escape	0x35
-# define kVK_ANSI_W	0x0D
-# define kVK_ANSI_S	0x01
-# define kVK_ANSI_A 0x00
-# define kVK_ANSI_D 0x02
-# define kVK_ANSI_Q 0x0C
-# define kVK_ANSI_O 0x1F
-# define kVK_ANSI_Z 0x06
-# define kVK_ANSI_P 0x23
-# define kVK_ANSI_1 0x12
-# define kVK_ANSI_2 0x13
-# define kVK_ANSI_3 0x14
-# define kVK_ANSI_4 0x15
-# define kVK_LeftArrow 0x7B
-# define kVK_RightArrow 0x7C
-# define kVK_DownArrow 0x7D
-# define kVK_UpArrow 0x7E
-# define VK_ANSI_KeypadPlus 0x45
-# define kVK_ANSI_KeypadMinus 0x4E
-# define color_of_board 16763904
+
+# define KVK_ESCAPE	0x35
+# define KVK_ANSI_W	0x0D
+# define KVK_ANSI_S	0x01
+# define KVK_ANSI_A 0x00
+# define KVK_ANSI_D 0x02
+# define KVK_ANSI_Q 0x0C
+# define KVK_ANSI_O 0x1F
+# define KVK_ANSI_Z 0x06
+# define KVK_ANSI_P 0x23
+# define KVK_ANSI_1 0x12
+# define KVK_ANSI_2 0x13
+# define KVK_ANSI_3 0x14
+# define KVK_ANSI_4 0x15
+# define KVK_LEFT_ARROW 0x7B
+# define KVK_RIGHT_ARROW 0x7C
+# define KVK_DOWN_ARROW 0x7D
+# define KVK_UP_ARROW 0x7E
+# define VK_ANSI_PLUS 0x45
+# define KVK_ANSI_MINUS 0x4E
+# define COB 16763904
 # define WIDTH_OF_WINDOW 1500
 # define HIGH_OF_WINDOW 1000
 # define WIDTH_OF_IMAGE 1000
@@ -110,5 +111,7 @@ void	draw_line(t_map *map, t_point s, t_point f);
 int		key_press(int keycode, t_map *map);
 void	ft_isometric_proj(t_map *map, int *counter);
 void	print_menu(t_map *map);
+int		key_press(int keycode, t_map *map);
+void	ft_find_the_right_bors(int *bors, int *mul);
 
 #endif
