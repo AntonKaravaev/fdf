@@ -6,7 +6,7 @@
 /*   By: crenly-b <crenly-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 12:44:44 by crenly-b          #+#    #+#             */
-/*   Updated: 2019/10/18 14:50:19 by crenly-b         ###   ########.fr       */
+/*   Updated: 2019/10/19 20:38:36 by crenly-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int			*take_int(t_map *map, char *line, int *max_x)
 
 	i = 0;
 	split = ft_strsplit(line, ' ');
-     //ft_strdel(&line);
+     ft_strdel(&line);
 	while (split[i])
 		i++;
 	array = (int*)ft_memalloc(i * 4);
@@ -72,7 +72,7 @@ int			*take_int(t_map *map, char *line, int *max_x)
 		else
 			map->color[map->po] = (int)0x0ef01d;
 	}
-     //ft_str2del(&split);
+    ft_str2del(&split);
 	return (array);
 }
 
@@ -99,7 +99,6 @@ int			read_file(t_map *map, int fd)
 		map->max_y++;
 	}
 	map->matrix = creat_matrix(&start, map->max_y);
-	//ft_lstdel(start); // Зафришить список!!!
 	print_matrix(map->matrix, map->max_y, map->max_x);
     map->mul_xy = map->max_x * map->max_y;
 	return (1);
