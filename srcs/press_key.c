@@ -6,7 +6,7 @@
 /*   By: crenly-b <crenly-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 23:21:22 by crenly-b          #+#    #+#             */
-/*   Updated: 2019/10/19 23:42:51 by crenly-b         ###   ########.fr       */
+/*   Updated: 2019/10/20 13:41:26 by crenly-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ static int		key_press_sup2(int k, t_map *map)
 	else if (k == KVK_ANSI_4)
 		map->iso = 1;
 	else if (k == KVK_UP_ARROW)
-		map->move_vert -= 10;
-	else if (k == KVK_DOWN_ARROW)
 		map->move_vert += 10;
+	else if (k == KVK_DOWN_ARROW)
+		map->move_vert -= 10;
 	else if (k == KVK_LEFT_ARROW)
 		map->move_horiz -= 10;
 	else if (k == KVK_RIGHT_ARROW)

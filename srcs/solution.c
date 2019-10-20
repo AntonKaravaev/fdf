@@ -6,7 +6,7 @@
 /*   By: crenly-b <crenly-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 17:02:25 by crenly-b          #+#    #+#             */
-/*   Updated: 2019/10/19 22:53:15 by crenly-b         ###   ########.fr       */
+/*   Updated: 2019/10/20 14:01:54 by crenly-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	ft_fill_in_points(t_map *map, int i_int, int *co)
 	j = -1;
 	while (++j < map->max_x)
 	{
-		map->points[*co].z = (map->matrix[i_int][j]) * (map->bors + map->pull_z);
+		map->points[*co].z = (map->matrix[i_int][j])
+			* (map->bors + map->pull_z);
 		map->points[*co].x = j * map->bors - map->max_x * map->bors / 2;
 		map->points[*co].y = i_int * map->bors - map->max_y * map->bors / 2;
 		map->points[*co].color = map->color[*co];
@@ -28,9 +29,9 @@ void	ft_fill_in_points(t_map *map, int i_int, int *co)
 		z_rotation(map, map->points[*co].x, map->points[*co].y, co);
 		if (map->iso == 1)
 			ft_isometric_proj(map, co);
-		map->points[*co].x += (WIDTH_OF_IMAGE) / 2 + map->move_horiz;
+		map->points[*co].x += WIDTH_OF_IMAGE / 2 + map->move_horiz;
 		map->points[*co].y += (HIGH_OF_IMAGE + map->max_y * map->bors)
-			/ 2 + map->move_vert;
+			/ 2 + -map->move_vert;
 		(*co)++;
 	}
 }
@@ -78,5 +79,6 @@ void	ft_solution(t_map *map)
 	map->start_pos = 0;
 	counter = -1;
 	i = -1;
+	print_menu(map);
 	ft_print_picture(map, i, j, counter);
 }

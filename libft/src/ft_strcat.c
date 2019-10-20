@@ -6,7 +6,7 @@
 /*   By: crenly-b <crenly-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 22:11:03 by crenly-b          #+#    #+#             */
-/*   Updated: 2019/09/02 12:24:28 by crenly-b         ###   ########.fr       */
+/*   Updated: 2019/10/20 12:06:40 by crenly-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@ char	*ft_strcat(char *restrict s1, const char *restrict s2)
 
 	i = 0;
 	end_of_s1 = ft_strlen(s1);
+	ft_printf("Hello\n");
 	while (s2[i] != '\0')
 	{
+				ft_printf("Hello %c\n", s2[i]);
 		s1[end_of_s1] = s2[i];
 		end_of_s1++;
 		i++;
+		ft_printf("YES");
 	}
 	s1[end_of_s1] = '\0';
 	return (s1);

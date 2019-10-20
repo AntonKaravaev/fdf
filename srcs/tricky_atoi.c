@@ -6,7 +6,7 @@
 /*   By: crenly-b <crenly-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 22:28:13 by crenly-b          #+#    #+#             */
-/*   Updated: 2019/10/19 20:52:31 by crenly-b         ###   ########.fr       */
+/*   Updated: 2019/10/20 13:31:24 by crenly-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,18 @@ static int		ft_tricky_atoi_sup2(const char *s)
 static void		ft_tas3_sup(t_map *map, char ***s)
 {
 	int i;
+	int stop;
 
 	i = 0;
 	while ((*s)[1][i] != '\0')
 		i++;
-	if (i != 8 || (*s)[1][0] != '0' || (*s)[1][1] != 'x')
+	stop = i;
+	if (i > 8 || (*s)[1][0] != '0' || (*s)[1][1] != 'x')
 		ft_error_atoi();
 	else
 	{
 		i = 2;
-		while (i < 8)
+		while (i < stop)
 		{
 			if (((*s)[1][i] >= '0' && (*s)[1][i] <= '9') || ((*s)[1][i] >= 'A'
 			&& (*s)[1][i] <= 'F') || ((*s)[1][i] >= 'a' && (*s)[1][i] <= 'f'))

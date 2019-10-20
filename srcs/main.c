@@ -6,7 +6,7 @@
 /*   By: crenly-b <crenly-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 12:44:47 by crenly-b          #+#    #+#             */
-/*   Updated: 2019/10/19 23:55:58 by crenly-b         ###   ########.fr       */
+/*   Updated: 2019/10/20 13:04:04 by crenly-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ int			main(int argc, char **argv)
 	if (argc == 2)
 	{
 		ft_validation(argv[1], &map);
-		print_menu(&map);
 		ft_find_the_right_bors(&map.bors, &map.mul_xy);
 		ft_solution(&map);
 	}

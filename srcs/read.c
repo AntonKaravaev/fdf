@@ -6,13 +6,13 @@
 /*   By: crenly-b <crenly-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 12:44:44 by crenly-b          #+#    #+#             */
-/*   Updated: 2019/10/19 23:56:23 by crenly-b         ###   ########.fr       */
+/*   Updated: 2019/10/20 13:27:23 by crenly-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-void		print_matrix(int **matrix, int max_y, int max_x)
+static void	print_matrix(int **matrix, int max_y, int max_x)
 {
 	int i;
 	int j;
@@ -27,7 +27,7 @@ void		print_matrix(int **matrix, int max_y, int max_x)
 	}
 }
 
-int			**creat_matrix(t_list **alst, int max_y)
+static int	**creat_matrix(t_list **alst, int max_y)
 {
 	int		**matrix;
 	t_list	*tmp;
@@ -44,6 +44,17 @@ int			**creat_matrix(t_list **alst, int max_y)
 	}
 	tmp = NULL;
 	return (matrix);
+}
+
+static void	take_int_sup_color(t_map *map)
+{
+	if (map->temp_color != 0)
+	{
+		map->color[map->po] = map->temp_color;
+		map->temp_color = 0;
+	}
+	else
+		map->color[map->po] = (int)(0x0ef01d);
 }
 
 int			*take_int(t_map *map, char *line, int *max_x)
@@ -64,13 +75,7 @@ int			*take_int(t_map *map, char *line, int *max_x)
 	{
 		++map->po;
 		array[i] = ft_tricky_atoi(map, split[i]);
-		if (map->temp_color != 0)
-		{
-			map->color[map->po] = map->temp_color;
-			map->temp_color = 0;
-		}
-		else
-			map->color[map->po] = (int)0x0ef01d;
+		take_int_sup_color(map);
 	}
 	ft_str2del(&split);
 	return (array);
